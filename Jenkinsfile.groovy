@@ -2,17 +2,22 @@ pipeline {
     agent any
 
     environment {
-        registry = ""
-        registryCredential = 'docker_akshay'
+        registry = "javaeeapp"
+        registryCredential = 'docker_ev'
         dockerImage = ''
 
-    }
 
+    }
 
     stages {
         stage('Cloning Git') {
             steps {
-                git branch: 'master', url: 'https://github.com/ShiftHash/javaeeapp.git'
+                git branch: 'main', url: 'https://github.com/ShiftHash/javaeeapp.git'
+            }
+        }
+        stage('build the project') {
+            steps {
+                sh "mvn clean install"
             }
         }
         stage('Building  image') {
